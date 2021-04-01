@@ -1,7 +1,6 @@
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
-const { response } = require('express')
 const app = express()
 
 app.use(express.json())
@@ -39,7 +38,7 @@ let persons = [
 ]
 
 app.get('/', (req, res) => {
-  response.send('go to /api/persons for data')
+  res.send('go to /api/persons for data')
 })
 
 app.get('/api/persons', (request, response) => {
