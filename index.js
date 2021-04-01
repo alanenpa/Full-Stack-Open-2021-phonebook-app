@@ -1,7 +1,7 @@
-const { response, request } = require('express')
 const express = require('express')
 const morgan = require('morgan')
 const cors = require('cors')
+const { response } = require('express')
 const app = express()
 
 app.use(express.json())
@@ -37,6 +37,10 @@ let persons = [
     "id": 4
   }
 ]
+
+app.get('/', (req, res) => {
+  response.send('go to /api/persons for data')
+})
 
 app.get('/api/persons', (request, response) => {
   response.json(persons)
