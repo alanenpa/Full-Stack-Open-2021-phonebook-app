@@ -17,29 +17,6 @@ morgan.token('body', function (request) {
 
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms :body'))
 
-let persons = [
-  {
-    "name": "Arto Hellas",
-    "number": "040-123456",
-    "id": 1
-  },
-  {
-    "name": "Ada Lovelace",
-    "number": "39-44-5323523",
-    "id": 2
-  },
-  {
-    "name": "Dan Abramov",
-    "number": "12-43-234345",
-    "id": 3
-  },
-  {
-    "name": "Mary Poppendieck",
-    "number": "39-23-6423122",
-    "id": 4
-  }
-]
-
 app.get('/', (req, res) => {
   res.send('go to /api/persons for data')
 })
@@ -74,7 +51,7 @@ app.get('/api/persons/:id', (request, response, next) => {
 
 app.delete('/api/persons/:id', (request, response, next) => {
   Person.findByIdAndRemove(request.params.id)
-    .then(result => {
+    .then(() => {
       response.status(204).end()
     })
     .catch(error => next(error))
@@ -97,7 +74,7 @@ app.put('/api/persons/:id', (request, response, next) => {
 app.post('/api/persons', (request, response, next) => {
   const body = request.body
 
-  if (body.name === "" || body.number === "") {
+  if (body.name === '' || body.number === '') {
     return response.status(400).json({ error: 'content missing' })
   }
 
@@ -109,7 +86,7 @@ app.post('/api/persons', (request, response, next) => {
   person.save().then(savedEntry => {
     response.json(savedEntry)
   })
-  .catch(error => next(error))
+    .catch(error => next(error))
 })
 
 const errorHandler = (error, request, response, next) => {
@@ -126,6 +103,7 @@ const errorHandler = (error, request, response, next) => {
 
 app.use(errorHandler)
 
+// eslint-disable-next-line no-undef
 const PORT = process.env.PORT
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
